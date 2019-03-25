@@ -20,18 +20,19 @@ def get_callback(api_future, data):
     return callback
 
 
+# Initialize a Publisher client
+pub_client = pubsub_v1.PublisherClient()
+
+
 def pub(topic_name, data):
     """Publishes a message to a Pub/Sub topic."""
-    # [START pubsub_quickstart_pub_client]
-    # Initialize a Publisher client
-    client = pubsub_v1.PublisherClient()
     # [END pubsub_quickstart_pub_client]
     # Create a fully qualified identifier in the form of
     # `projects/{project_id}/topics/{topic_name}`
-    topic_path = client.topic_path(project_id, topic_name)
+    topic_path = pub_client.topic_path(project_id, topic_name)
 
     # When you publish a message, the client returns a future.
-    api_future = client.publish(topic_path, data=data)
+    api_future = pub_client.publish(topic_path, data=data)
     api_future.add_done_callback(get_callback(api_future, data))
 
     # Keep the main thread from exiting until background message
@@ -40,13 +41,15 @@ def pub(topic_name, data):
         time.sleep(0.1)
 
 
+sub_client = pubsub_v1.SubscriberClient()
+
+
 def sub(subscription_name, callback):
     """Receives messages from a Pub/Sub subscription."""
-    client = pubsub_v1.SubscriberClient()
-    subscription_path = client.subscription_path(
+    subscription_path = sub_client.subscription_path(
         project_id, subscription_name)
 
-    client.subscribe(subscription_path, callback=callback)
+    sub_client.subscribe(subscription_path, callback=callback)
     print('Escutando mensagens no caminho {}..\n'.format(subscription_path))
 
     while True:

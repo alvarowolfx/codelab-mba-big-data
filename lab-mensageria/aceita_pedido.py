@@ -16,7 +16,7 @@ def callback(message):
     time.sleep(3)
 
     print('Processamento finalizado para pedido com id {}'.format(id))
-    pub('pedidos-confirmados', bytes(id, 'utf8'))
+    pub('pedidos-confirmados', bytes(id, 'utf-8'))
 
     print('Pedido {} enviado a fila de confirmados'.format(id))
     message.ack()

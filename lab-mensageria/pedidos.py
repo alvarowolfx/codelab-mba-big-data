@@ -10,7 +10,7 @@ def main():
     while True:
         id = str(uuid.uuid4())
         print('Enviando pedido {} para fila'.format(id))
-        pub('pedidos', bytes(id, 'utf8'))
+        pub('pedidos', bytes(id, 'utf-8'))
         time.sleep(10)
 
 
