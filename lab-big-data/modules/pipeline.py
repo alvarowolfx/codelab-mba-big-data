@@ -50,9 +50,9 @@ class KerasMobileNetDoFn(beam.DoFn):
 
         processed_image = preprocess_input(image_batch.copy())
         labels = []
-        with graph_var.as_default():
-            with session_var.as_default():
-                predictions = model.predict(processed_image)
+        with self.graph.as_default():
+            with self.session.as_default():
+                predictions = self.model.predict(processed_image)
                 labels = decode_predictions(predictions, top=5)
         return labels[0]
 
