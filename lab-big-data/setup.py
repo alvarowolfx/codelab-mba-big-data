@@ -7,7 +7,7 @@ import setuptools
 REQUIRED_PACKAGES = [
     'apache-beam[gcp]',
     'Keras==2.2.4',
-    'tensorflow==1.13.1',
+    'tensorflow==1.11.0',
     'numpy==1.16.2',
     'Pillow==5.4.1',
     'requests==2.21.0',
