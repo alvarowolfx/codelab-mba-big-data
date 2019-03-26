@@ -2,3 +2,4 @@ __pycache__
 *output.txt*
 out.txt
 *.egg-info*
+.pyc
