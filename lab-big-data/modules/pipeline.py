@@ -35,7 +35,7 @@ class KerasMobileNetDoFn(beam.DoFn):
 
     def __init__(self):
         self.model = None
-        #self.session = None
+        # self.session = None
 
     def load_resize_img(self, url):
         response = requests.get(url)
@@ -176,6 +176,25 @@ def run_pipeline(options, known_args):
          'image_id': 'STRING',
          'original_url': 'STRING',
          'label_map': 'STRING'
+     }, options.view_as(GoogleCloudOptions).project))
+
+    def split_by_label(result):
+        (image_id, original_url, label_map) = result
+        return [(label, original_url) for label in label_map]
+
+    def format_result_dict_inverted(result):
+        (label, original_url) = result
+        return {
+            'label': label,
+            'original_url': original_url
+        }
+
+    (results
+     | 'Split label' >> beam.FlatMap(split_by_label)
+     | 'Format inverted results' >> beam.Map(format_result_dict_inverted)
+     | 'Write to BigQuery Inverted' >> WriteToBigQuery(known_args.table_name + '_inverted', known_args.dataset, {
+         'label': 'STRING',
+         'original_url': 'STRING',
      }, options.view_as(GoogleCloudOptions).project))
 
     result = p.run()
