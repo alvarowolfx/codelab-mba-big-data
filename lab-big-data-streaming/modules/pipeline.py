@@ -178,6 +178,7 @@ def run_pipeline(options, known_args):
          'label_map': 'STRING'
      }, options.view_as(GoogleCloudOptions).project))
 
+    '''
     def split_by_label(result):
         (image_id, original_url, label_map) = result
         return [(label, original_url) for label in label_map]
@@ -196,6 +197,7 @@ def run_pipeline(options, known_args):
          'label': 'STRING',
          'original_url': 'STRING',
      }, options.view_as(GoogleCloudOptions).project))
+    '''
 
     result = p.run()
     result.wait_until_finish()

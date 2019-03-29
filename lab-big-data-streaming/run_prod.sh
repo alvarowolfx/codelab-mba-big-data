@@ -1,11 +1,15 @@
+export BUCKET_NAME=mba-senai-alvaro-bucket
+export PROJECT_ID=mba-senai-codelab
+export BQ_DATASET=mba_senai_mensageria
+
 python main.py \
-  --input_subscription projects/mba-senai-codelab/subscriptions/photos-classification \
+  --input_subscription projects/$PROJECT_ID/subscriptions/photos-classification \
   --output ./output.txt \
-  --dataset mba_senai_mensageria \
-  --project mba-senai-codelab \
+  --dataset $BQ_DATASET \
+  --project $PROJECT_ID \
   --runner DataflowRunner \
-  --temp_location gs://mba-senai-alvaro-bucket/photos_classification/temp \
-  --staging_location gs://mba-senai-alvaro-bucket/photos_classification/staging \
+  --temp_location gs://$BUCKET_NAME/photos_classification/temp \
+  --staging_location gs://$BUCKET_NAME/photos_classification/staging \
   --machine_type n1-standard-1 \
   --max_num_workers 1 \
   --setup_file ./setup.py 
