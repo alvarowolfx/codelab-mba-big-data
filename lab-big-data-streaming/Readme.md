@@ -1,4 +1,4 @@
-# Lab Streaming Big Data
+# Lab Streaming Big Data com Apache Beam e Dataflow
 
 ## Configurar Pub/Sub
 

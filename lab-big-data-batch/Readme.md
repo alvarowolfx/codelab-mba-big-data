@@ -1,6 +1,6 @@
-# Lab Big Data Batch
+# Lab Big Data Batch com Spark e Dataproc
 
-## Criar cluster Hadoop
+## Criar cluster Hadoop 
 
 ## Configurar GCS
 
